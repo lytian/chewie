@@ -17,6 +17,7 @@ class PlayerWithControls extends StatelessWidget {
     return Center(
       child: Container(
         width: MediaQuery.of(context).size.width,
+        color: Colors.black,
         child: AspectRatio(
           aspectRatio:
               chewieController.aspectRatio ?? _calculateAspectRatio(context),
@@ -60,6 +61,7 @@ class PlayerWithControls extends StatelessWidget {
                     iconColor: Color.fromARGB(255, 200, 200, 200),
                   )
         : Container();
+
   }
 
   double _calculateAspectRatio(BuildContext context) {

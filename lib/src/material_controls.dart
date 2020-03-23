@@ -26,7 +26,7 @@ class _MaterialControlsState extends State<MaterialControls> {
   bool _dragging = false;
   bool _displayTapped = false;
 
-  final barHeight = 48.0;
+  final barHeight = 45.0;
   final marginSize = 5.0;
 
   VideoPlayerController controller;
@@ -59,6 +59,9 @@ class _MaterialControlsState extends State<MaterialControls> {
           absorbing: _hideStuff,
           child: Column(
             children: <Widget>[
+              chewieController.title != null && chewieController.isFullScreen
+                ? _buildTopBar(context)
+                : Container(),
               _latestValue != null &&
                           !_latestValue.isPlaying &&
                           _latestValue.duration == null ||
@@ -104,6 +107,39 @@ class _MaterialControlsState extends State<MaterialControls> {
     super.didChangeDependencies();
   }
 
+  /// 顶部导航条
+  AnimatedOpacity _buildTopBar(BuildContext context,) {
+    return AnimatedOpacity(
+      opacity: _hideStuff ? 0.0 : 1.0,
+      duration: Duration(milliseconds: 300),
+      child: Container(
+        height: barHeight - 5,
+        width: double.infinity,
+        padding: EdgeInsets.symmetric(horizontal: marginSize),
+        color: Colors.transparent,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            IconButton(
+              icon: Icon(Icons.arrow_back),
+              color: Colors.white,
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              onPressed: () {
+                chewieController.toggleFullScreen();
+              }
+            ),
+            Text('${chewieController.title}',
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// 底部控制器
   AnimatedOpacity _buildBottomBar(
     BuildContext context,
   ) {
@@ -114,7 +150,7 @@ class _MaterialControlsState extends State<MaterialControls> {
       duration: Duration(milliseconds: 300),
       child: Container(
         height: barHeight,
-        color: Theme.of(context).dialogBackgroundColor,
+        color: Colors.transparent,
         child: Row(
           children: <Widget>[
             _buildPlayPause(controller),
@@ -152,6 +188,7 @@ class _MaterialControlsState extends State<MaterialControls> {
               chewieController.isFullScreen
                   ? Icons.fullscreen_exit
                   : Icons.fullscreen,
+              color: Colors.white,
             ),
           ),
         ),
@@ -190,12 +227,12 @@ class _MaterialControlsState extends State<MaterialControls> {
               child: GestureDetector(
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Theme.of(context).dialogBackgroundColor,
+                    color: Color.fromRGBO(0, 0, 0, 0.5),
                     borderRadius: BorderRadius.circular(48.0),
                   ),
                   child: Padding(
                     padding: EdgeInsets.all(12.0),
-                    child: Icon(Icons.play_arrow, size: 32.0),
+                    child: Icon(Icons.play_arrow, size: 32.0, color: Colors.white,),
                   ),
                 ),
               ),
@@ -235,6 +272,7 @@ class _MaterialControlsState extends State<MaterialControls> {
                 (_latestValue != null && _latestValue.volume > 0)
                     ? Icons.volume_up
                     : Icons.volume_off,
+                color: Colors.white,
               ),
             ),
           ),
@@ -256,6 +294,7 @@ class _MaterialControlsState extends State<MaterialControls> {
         ),
         child: Icon(
           controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+          color: Colors.white,
         ),
       ),
     );
@@ -275,6 +314,7 @@ class _MaterialControlsState extends State<MaterialControls> {
         '${formatDuration(position)} / ${formatDuration(duration)}',
         style: TextStyle(
           fontSize: 14.0,
+          color: Colors.white,
         ),
       ),
     );
@@ -383,12 +423,23 @@ class _MaterialControlsState extends State<MaterialControls> {
           },
           colors: chewieController.materialProgressColors ??
               ChewieProgressColors(
-                  playedColor: Theme.of(context).accentColor,
-                  handleColor: Theme.of(context).accentColor,
-                  bufferedColor: Theme.of(context).backgroundColor,
-                  backgroundColor: Theme.of(context).disabledColor),
+                playedColor: Theme.of(context).primaryColor,
+                handleColor: Theme.of(context).primaryColor,
+                bufferedColor: Colors.grey,
+                backgroundColor: Color.fromRGBO(200, 200, 200, 0.3),
+              )
         ),
       ),
     );
+  }
+
+  Function wrapHorizontalGesture(Function function) =>
+      chewieController.horizontalGesture == true ? function : null;
+
+  Function wrapVerticalGesture(Function function) =>
+      chewieController.verticalGesture == true ? function : null;
+
+  void _onHorizontalDragStart(DragStartDetails details) {
+//    control
   }
 }

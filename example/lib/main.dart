@@ -27,6 +27,7 @@ class _ChewieDemoState extends State<ChewieDemo> {
   VideoPlayerController _videoPlayerController2;
   ChewieController _chewieController;
 
+
   @override
   void initState() {
     super.initState();
@@ -39,15 +40,13 @@ class _ChewieDemoState extends State<ChewieDemo> {
       aspectRatio: 3 / 2,
       autoPlay: true,
       looping: true,
-      // Try playing around with some of these other options:
-
-      // showControls: false,
-      // materialProgressColors: ChewieProgressColors(
-      //   playedColor: Colors.red,
-      //   handleColor: Colors.blue,
-      //   backgroundColor: Colors.grey,
-      //   bufferedColor: Colors.lightGreen,
-      // ),
+      title: "测试视频",
+//       materialProgressColors: ChewieProgressColors(
+//         playedColor: Theme.of(context).primaryColor,
+//         handleColor: Theme.of(context).primaryColor,
+//         bufferedColor: Colors.grey,
+//         backgroundColor: Color.fromRGBO(200, 200, 200, 0.3),
+//       ),
       // placeholder: Container(
       //   color: Colors.grey,
       // ),

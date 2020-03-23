@@ -192,6 +192,9 @@ class ChewieController extends ChangeNotifier {
       DeviceOrientation.landscapeRight,
     ],
     this.routePageBuilder = null,
+    this.title,
+    this.horizontalGesture = true,
+    this.verticalGesture = true
   }) : assert(videoPlayerController != null,
             'You must provide a controller to play a video') {
     _initialize();
@@ -271,10 +274,17 @@ class ChewieController extends ChangeNotifier {
   /// Defines a custom RoutePageBuilder for the fullscreen
   final ChewieRoutePageBuilder routePageBuilder;
 
+  /// 全屏时的标题
+  final String title;
+
+  /// 是否打开水平方向手势
+  final bool horizontalGesture ;
+
+  /// 是否打开垂直方向手势
+  final bool verticalGesture;
+
   static ChewieController of(BuildContext context) {
-    final chewieControllerProvider =
-        context.inheritFromWidgetOfExactType(_ChewieControllerProvider)
-            as _ChewieControllerProvider;
+    final _ChewieControllerProvider chewieControllerProvider = context.dependOnInheritedWidgetOfExactType();
 
     return chewieControllerProvider.controller;
   }

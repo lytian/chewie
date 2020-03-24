@@ -32,7 +32,7 @@ class _ChewieDemoState extends State<ChewieDemo> {
   void initState() {
     super.initState();
     _videoPlayerController1 = VideoPlayerController.network(
-        'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4');
+        'http://pgcvideo.cdn.xiaodutv.com/2223724120_3181477350_20181214222359.mp4?Cache-Control%3Dmax-age%3A8640000%26responseExpires%3DSun%2C_24_Mar_2019_23%3A11%3A03_GMT=&xcode=bc3f6b943ce5e57443c18133b214cfad113d029c3486bd85&time=1585104336&_=1585019976203');
     _videoPlayerController2 = VideoPlayerController.network(
         'https://www.sample-videos.com/video123/mp4/480/asdasdas.mp4');
     _chewieController = ChewieController(
@@ -41,6 +41,7 @@ class _ChewieDemoState extends State<ChewieDemo> {
       autoPlay: true,
       looping: true,
       title: "测试视频",
+      allowedScreenSleep: false
 //       materialProgressColors: ChewieProgressColors(
 //         playedColor: Theme.of(context).primaryColor,
 //         handleColor: Theme.of(context).primaryColor,

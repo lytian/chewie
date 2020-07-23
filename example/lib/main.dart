@@ -40,7 +40,11 @@ class _ChewieDemoState extends State<ChewieDemo> {
       aspectRatio: 3 / 2,
       autoPlay: true,
       looping: true,
-      allowedScreenSleep: false
+      allowedScreenSleep: false,
+      title: "测试视频",
+      onDownload: () {
+        print(111111111);
+      },
 //       materialProgressColors: ChewieProgressColors(
 //         playedColor: Theme.of(context).primaryColor,
 //         handleColor: Theme.of(context).primaryColor,
@@ -78,12 +82,7 @@ class _ChewieDemoState extends State<ChewieDemo> {
             Expanded(
               child: Center(
                 child: Chewie(
-                  title: "测试视频",
-                  padding: EdgeInsets.only(top: 20),
                   controller: _chewieController,
-                  onDownload: () {
-                    print(111111111);
-                  },
                 ),
               ),
             ),

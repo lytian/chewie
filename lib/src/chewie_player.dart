@@ -22,20 +22,11 @@ class Chewie extends StatefulWidget {
   Chewie({
     Key key,
     this.controller,
-    this.title,
-    this.padding,
-    this.onDownload
   })  : assert(controller != null, 'You must provide a chewie controller'),
         super(key: key);
 
   /// The [ChewieController]
   final ChewieController controller;
-  /// 视频标题
-  final String title;
-  /// 内边距
-  final EdgeInsets padding;
-  /// 下载回调方法
-  final Function onDownload;
 
   @override
   ChewieState createState() {

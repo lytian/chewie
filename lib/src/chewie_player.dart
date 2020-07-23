@@ -204,7 +204,6 @@ class ChewieController extends ChangeNotifier {
     ],
     this.routePageBuilder = null,
     this.title,
-    this.padding,
     this.onDownload,
     this.horizontalGesture = true,
     this.verticalGesture = true
@@ -289,9 +288,6 @@ class ChewieController extends ChangeNotifier {
 
   /// 视频标题
   final String title;
-
-  /// 内边距
-  final EdgeInsets padding;
 
   /// 下载回调方法
   final Function onDownload;

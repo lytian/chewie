@@ -10,12 +10,7 @@ import 'package:video_player/video_player.dart';
 
 class MaterialControls extends StatefulWidget {
 
-  const MaterialControls({Key key, this.title, this.onDownload}) : super(key: key);
-
-  /// 视频标题
-  final String title;
-  /// 下载回调方法
-  final Function onDownload;
+  const MaterialControls({Key key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -141,7 +136,7 @@ class _MaterialControlsState extends State<MaterialControls> {
             ),
             Expanded(
               flex: 1,
-              child: Text(widget.title != null && chewieController.isFullScreen ? widget.title : '',
+              child: Text(chewieController.title != null && chewieController.isFullScreen ? chewieController.title : '',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                 )
@@ -317,7 +312,7 @@ class _MaterialControlsState extends State<MaterialControls> {
   GestureDetector _buildDownload() {
     return GestureDetector(
       onTap: () {
-        widget.onDownload();
+        chewieController.onDownload();
       },
       child: Container(
         height: barHeight,

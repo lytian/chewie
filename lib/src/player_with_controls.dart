@@ -8,14 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 class PlayerWithControls extends StatelessWidget {
-  PlayerWithControls({Key key, this.title, this.padding, this.onDownload}) : super(key: key);
-
-  /// 视频标题
-  final String title;
-  /// 内边距
-  final EdgeInsets padding;
-  /// 下载回调方法
-  final Function onDownload;
+  PlayerWithControls({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +17,7 @@ class PlayerWithControls extends StatelessWidget {
     return Center(
       child: Container(
         width: MediaQuery.of(context).size.width,
-        padding: padding,
+        padding: chewieController.padding,
         color: Colors.black,
         child: AspectRatio(
           aspectRatio:
@@ -63,7 +56,7 @@ class PlayerWithControls extends StatelessWidget {
         ? chewieController.customControls != null
             ? chewieController.customControls
             : Theme.of(context).platform == TargetPlatform.android
-                ? MaterialControls(title: title, onDownload: onDownload)
+                ? MaterialControls()
                 : CupertinoControls(
                     backgroundColor: Color.fromRGBO(41, 41, 41, 0.7),
                     iconColor: Color.fromARGB(255, 200, 200, 200),

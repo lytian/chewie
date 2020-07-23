@@ -80,11 +80,7 @@ class ChewieState extends State<Chewie> {
   Widget build(BuildContext context) {
     return _ChewieControllerProvider(
       controller: widget.controller,
-      child: PlayerWithControls(
-        title: widget.title,
-        padding: widget.padding,
-        onDownload: widget.onDownload,
-      ),
+      child: PlayerWithControls(),
     );
   }
 
@@ -207,6 +203,9 @@ class ChewieController extends ChangeNotifier {
       DeviceOrientation.landscapeRight,
     ],
     this.routePageBuilder = null,
+    this.title,
+    this.padding,
+    this.onDownload,
     this.horizontalGesture = true,
     this.verticalGesture = true
   }) : assert(videoPlayerController != null,
@@ -287,6 +286,15 @@ class ChewieController extends ChangeNotifier {
 
   /// Defines a custom RoutePageBuilder for the fullscreen
   final ChewieRoutePageBuilder routePageBuilder;
+
+  /// 视频标题
+  final String title;
+
+  /// 内边距
+  final EdgeInsets padding;
+
+  /// 下载回调方法
+  final Function onDownload;
 
   /// 是否打开水平方向手势
   final bool horizontalGesture ;

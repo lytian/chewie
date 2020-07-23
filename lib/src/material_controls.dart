@@ -9,7 +9,13 @@ import 'package:screen/screen.dart';
 import 'package:video_player/video_player.dart';
 
 class MaterialControls extends StatefulWidget {
-  const MaterialControls({Key key}) : super(key: key);
+
+  const MaterialControls({Key key, this.title, this.onDownload}) : super(key: key);
+
+  /// 视频标题
+  final String title;
+  /// 下载回调方法
+  final Function onDownload;
 
   @override
   State<StatefulWidget> createState() {
@@ -68,9 +74,7 @@ class _MaterialControlsState extends State<MaterialControls> {
           absorbing: _hideStuff,
           child: Column(
             children: <Widget>[
-              chewieController.title != null && chewieController.isFullScreen
-                  ? _buildTopBar(context)
-                  : Container(),
+              _buildTopBar(context),
               _latestValue != null &&
                   !_latestValue.isPlaying &&
                   _latestValue.duration == null ||
@@ -130,18 +134,19 @@ class _MaterialControlsState extends State<MaterialControls> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            IconButton(
-                icon: Icon(Icons.arrow_back),
-                color: Colors.white,
-                padding: EdgeInsets.symmetric(horizontal: 10),
+            BackButton(
                 onPressed: () {
                   chewieController.toggleFullScreen();
                 }
             ),
-            Text('${chewieController.title}',
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-            )
+            Expanded(
+              flex: 1,
+              child: Text(widget.title != null && chewieController.isFullScreen ? widget.title : '',
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                )
+            ),
+            _buildDownload()
           ],
         ),
       ),
@@ -303,6 +308,27 @@ class _MaterialControlsState extends State<MaterialControls> {
         ),
         child: Icon(
           controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+          color: Colors.white,
+        ),
+      ),
+    );
+  }
+
+  GestureDetector _buildDownload() {
+    return GestureDetector(
+      onTap: () {
+        widget.onDownload();
+      },
+      child: Container(
+        height: barHeight,
+        color: Colors.transparent,
+        margin: EdgeInsets.only(left: 8.0, right: 4.0),
+        padding: EdgeInsets.only(
+          left: 12.0,
+          right: 12.0,
+        ),
+        child: Icon(
+          Icons.file_download,
           color: Colors.white,
         ),
       ),

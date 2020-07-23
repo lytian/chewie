@@ -22,11 +22,20 @@ class Chewie extends StatefulWidget {
   Chewie({
     Key key,
     this.controller,
+    this.title,
+    this.padding,
+    this.onDownload
   })  : assert(controller != null, 'You must provide a chewie controller'),
         super(key: key);
 
   /// The [ChewieController]
   final ChewieController controller;
+  /// 视频标题
+  final String title;
+  /// 内边距
+  final EdgeInsets padding;
+  /// 下载回调方法
+  final Function onDownload;
 
   @override
   ChewieState createState() {
@@ -71,7 +80,11 @@ class ChewieState extends State<Chewie> {
   Widget build(BuildContext context) {
     return _ChewieControllerProvider(
       controller: widget.controller,
-      child: PlayerWithControls(),
+      child: PlayerWithControls(
+        title: widget.title,
+        padding: widget.padding,
+        onDownload: widget.onDownload,
+      ),
     );
   }
 
@@ -194,7 +207,6 @@ class ChewieController extends ChangeNotifier {
       DeviceOrientation.landscapeRight,
     ],
     this.routePageBuilder = null,
-    this.title,
     this.horizontalGesture = true,
     this.verticalGesture = true
   }) : assert(videoPlayerController != null,
@@ -275,9 +287,6 @@ class ChewieController extends ChangeNotifier {
 
   /// Defines a custom RoutePageBuilder for the fullscreen
   final ChewieRoutePageBuilder routePageBuilder;
-
-  /// 全屏时的标题
-  final String title;
 
   /// 是否打开水平方向手势
   final bool horizontalGesture ;

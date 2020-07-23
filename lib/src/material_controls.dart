@@ -124,15 +124,20 @@ class _MaterialControlsState extends State<MaterialControls> {
         height: barHeight - 6,
         width: double.infinity,
         padding: EdgeInsets.symmetric(horizontal: marginSize, vertical: 0),
-        color: Colors.black.withOpacity(0.12),
+        color: Colors.black.withOpacity(0.24),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             BackButton(
-                onPressed: () {
+              color: Colors.white,
+              onPressed: () {
+                if (chewieController.isFullScreen) {
                   chewieController.toggleFullScreen();
+                  return;
                 }
+                Navigator.maybePop(context);
+              }
             ),
             Expanded(
               flex: 1,
@@ -159,7 +164,7 @@ class _MaterialControlsState extends State<MaterialControls> {
       duration: Duration(milliseconds: 300),
       child: Container(
         height: barHeight,
-        color: Colors.black.withOpacity(0.12),
+        color: Colors.black.withOpacity(0.24),
         child: Row(
           children: <Widget>[
             _buildPlayPause(controller),

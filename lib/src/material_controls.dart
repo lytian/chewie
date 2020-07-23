@@ -130,14 +130,7 @@ class _MaterialControlsState extends State<MaterialControls> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             BackButton(
-              color: Colors.white,
-              onPressed: () {
-                if (chewieController.isFullScreen) {
-                  chewieController.toggleFullScreen();
-                  return;
-                }
-                Navigator.maybePop(context);
-              }
+              color: Colors.white
             ),
             Expanded(
               flex: 1,

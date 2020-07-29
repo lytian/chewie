@@ -139,7 +139,7 @@ class _MaterialControlsState extends State<MaterialControls> {
                   style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                 )
             ),
-            _buildDownload()
+            chewieController.showDownload ? _buildDownload() : Container()
           ],
         ),
       ),

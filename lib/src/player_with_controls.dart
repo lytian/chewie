@@ -5,6 +5,7 @@ import 'package:chewie/src/cupertino_controls.dart';
 import 'package:chewie/src/material_controls.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:video_player/video_player.dart';
 
 class PlayerWithControls extends StatelessWidget {
@@ -35,8 +36,7 @@ class PlayerWithControls extends StatelessWidget {
           chewieController.placeholder ?? Container(),
           Center(
             child: AspectRatio(
-              aspectRatio: chewieController.aspectRatio ??
-                  _calculateAspectRatio(context),
+              aspectRatio: _calPlayerAspectRatio(chewieController, context),
               child: VideoPlayer(chewieController.videoPlayerController),
             ),
           ),
@@ -70,5 +70,24 @@ class PlayerWithControls extends StatelessWidget {
     final height = size.height;
 
     return width > height ? width / height : height / width;
+  }
+
+  double _calPlayerAspectRatio(ChewieController chewieController, BuildContext context) {
+    if (chewieController.videoPlayerController != null
+        && chewieController.videoPlayerController.value.initialized) {
+      double aspectRatio = chewieController.videoPlayerController.value.aspectRatio;
+      if (aspectRatio < 1) {
+        if (chewieController.isFullScreen) {
+          SystemChrome.setPreferredOrientations([
+            DeviceOrientation.portraitUp,
+            DeviceOrientation.portraitDown,
+          ]);
+        }
+        return 1 / aspectRatio;
+      }
+      return aspectRatio;
+    }
+
+    return chewieController.aspectRatio ?? _calculateAspectRatio(context);
   }
 }

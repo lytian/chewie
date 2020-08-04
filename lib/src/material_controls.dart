@@ -130,7 +130,8 @@ class _MaterialControlsState extends State<MaterialControls> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             BackButton(
-              color: Colors.white
+              color: Colors.white,
+              onPressed: chewieController.onBack,
             ),
             Expanded(
               flex: 1,

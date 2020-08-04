@@ -196,6 +196,7 @@ class ChewieController extends ChangeNotifier {
     this.routePageBuilder = null,
     this.title,
     this.showDownload = true,
+    this.onBack,
     this.onDownload,
     this.horizontalGesture = true,
     this.verticalGesture = true
@@ -283,6 +284,9 @@ class ChewieController extends ChangeNotifier {
 
   /// 显示下载按钮
   final bool showDownload;
+
+  /// 返回事件处理
+  final VoidCallback onBack;
 
   /// 下载回调方法
   final Function onDownload;
